@@ -1,0 +1,78 @@
+<!Doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale: 1.0">
+        <!-- Material Icon CDN-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+        <link href="./weather.css" rel="stylesheet">
+        <title> Weather App</title>
+    </head>
+    <body>
+        <div class="container">
+                <div class="search-container">
+                    <input title="search" placeholder="name of the city" class="search-bar" spellcheck="false" type="text">
+                    <div class="search-icon"><span class="material-icons-sharp search-icon">search</span></div>
+                </div>
+                <div class="weather-image">
+                    <img src="./sun.png" alt="a picture of the sun and the clouds.">
+                </div>
+                <div class="weather-text">
+                    <h2 class="temperature"> 22°c</h2>
+                    <h4 class="city"> New York</h4>
+                </div>
+                <div class="weather-bottom">
+                    <div class="weather-humidity">
+                        <div class="humidity-icon">
+                            <span class="material-icons-sharp">waves </span>
+                        </div>
+                        <div class="humidity-text">
+                            <div class="humidity-text-1">
+                                <h2 class="humidity">70%</h2>
+                            </div>
+                            <div class="humidity-text-2">
+                                <h4> Humidity</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weather-wind">
+                        <div class="wind-icon">
+                            <span class="material-icons-sharp">air</span>
+                        </div>
+                        <div class="wind-text">
+                            <div class="wind-text-1">
+                                <h2 class="wind"> 1.85 km/h</h2>
+                            </div>
+                            <div class="wind-text-2">
+                                <h4> Wind Speed</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <script>
+            const apiKey = "d91336095ef2ccbe45141e2a930a4660";
+            const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+            const searchBox = document.querySelector(".search-bar input");
+             const searchBtn = document.querySelector(".search-icon");
+
+            async function checkWeather(city){
+                const response = await fetch(city + apiUrl + `&appid=${d91336095ef2ccbe45141e2a930a4660}`);
+                var data = await response.json();
+
+                document.querySelector(".city").innerHTML = data.name;
+                document.querySelector(".temperature").innerHTML = Math.round(data.main.temp) + "°c";
+                document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+                document.querySelector(".wind").innerHTML = data.main.wind + "km/h";
+            }
+
+            searchBtn.addEventListener("click", () =>{
+                checkWeather(searchBox.value);
+            })
+
+            checkWeather(); 
+        </script>
+
+    </body>
+</html>
